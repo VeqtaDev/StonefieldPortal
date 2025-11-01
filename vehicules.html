@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stonefield - Véhicules</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" href="assets/favicon.png">
+</head>
+<body>
+    <header class="sf-header">
+        <div class="container">
+            <div class="brand">
+                <img src="assets/logo.png" alt="Stonefield" class="logo">
+                <span>Portail Stonefield</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Accueil</a>
+                <a href="vehicules.html" class="active">Véhicules</a>
+                <a href="armes.html">Armes</a>
+                <a href="vetements.html">Vêtements</a>
+                <a href="metiers.html">Métiers</a>
+                <a href="staff.html">Suivi Staff</a>
+                <a href="photos.html">Photos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-lg">
+        <div class="toolbar">
+            <h1>Liste des véhicules</h1>
+            <div class="tools">
+                <input id="search" type="search" placeholder="Rechercher un véhicule…">
+                <select id="filter-category">
+                    <option value="all">Toutes les catégories</option>
+                </select>
+                <select id="filter-type">
+                    <option value="all">Tous</option>
+                    <option value="gta">GTA</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+            <p id="results-count" class="muted small" style="margin-top: 8px;"></p>
+        </div>
+
+        <div id="grid" class="grid"></div>
+    </main>
+
+    <footer class="sf-footer">
+        <div class="container"><span>© Stonefield</span></div>
+    </footer>
+
+    <template id="card-template">
+        <article class="card">
+            <div class="thumb-wrap">
+                <img class="thumb" alt="aperçu véhicule">
+                <button class="copy" title="Copier le nom de spawn">Copier</button>
+            </div>
+            <div class="meta">
+                <h3 class="name"></h3>
+                <code class="spawn"></code>
+            </div>
+        </article>
+    </template>
+
+    <script src="assets/main.js"></script>
+    <script src="assets/vehicules.js"></script>
+</body>
+</html>
+
+

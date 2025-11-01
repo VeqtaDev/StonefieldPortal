@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portail Stonefield - Suivi Staff</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" href="assets/favicon.png">
+</head>
+<body>
+    <header class="sf-header">
+        <div class="container">
+            <div class="brand">
+                <img src="assets/logo.png" alt="Stonefield" class="logo">
+                <span>Portail Stonefield</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Accueil</a>
+                <a href="vehicules.html">Véhicules</a>
+                <a href="armes.html">Armes</a>
+                <a href="vetements.html">Vêtements</a>
+                <a href="metiers.html">Métiers</a>
+                <a href="photos.html">Photos</a>
+                <a href="staff.html" class="active">Suivi Staff</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-lg">
+        <div class="toolbar">
+            <h1>Suivi Staff</h1>
+            <div class="tools">
+                <input id="s-search" type="search" placeholder="Rechercher un membre…">
+                <button id="add-staff" class="btn" type="button">+ Ajouter</button>
+            </div>
+        </div>
+        <div id="staff-grid" class="grid"></div>
+        <p id="staff-empty" class="muted" style="display:none">Aucun membre. Cliquez sur <strong>+ Ajouter</strong> pour créer une fiche staff.</p>
+
+        <section id="create-panel" class="card" style="display:none;margin-top:16px">
+            <div style="padding:16px">
+                <h2 style="margin:0 0 12px">Nouveau membre</h2>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                    <div>
+                        <label class="small muted" for="c-name">Nom</label>
+                        <input id="c-name" type="text" placeholder="Nom du membre" style="width:100%;margin-top:6px;background:var(--panel);border:1px solid var(--card-border);color:var(--text);border-radius:8px;padding:10px">
+                    </div>
+                    <div>
+                        <label class="small muted" for="c-role">Rôle</label>
+                        <select id="c-role" style="width:100%;margin-top:6px;background:var(--panel);border:1px solid var(--card-border);color:var(--text);border-radius:8px;padding:10px">
+                            <option>Helpeur</option>
+                            <option>Moderateur</option>
+                            <option>Administrateur</option>
+                            <option>Super Admin</option>
+                            <option>Responsable</option>
+                            <option>Gerant</option>
+                            <option>Fondateur</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top:12px">
+                    <label class="small muted" for="c-avatar">URL avatar (optionnel)</label>
+                    <input id="c-avatar" type="url" placeholder="https://..." style="width:100%;margin-top:6px;background:var(--panel);border:1px solid var(--card-border);color:var(--text);border-radius:8px;padding:10px">
+                </div>
+                <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+                    <button id="c-cancel" class="btn ghost" type="button">Annuler</button>
+                    <button id="c-save" class="btn" type="button">Créer</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="detail-panel" class="card" style="display:none;margin-top:16px">
+            <div style="padding:16px;display:flex;gap:16px;align-items:center">
+                <img id="d-avatar" alt="avatar" style="width:88px;height:88px;border-radius:12px;border:1px solid var(--card-border);object-fit:cover">
+                <div style="flex:1 1 auto">
+                    <h2 id="d-name" style="margin:0"></h2>
+                    <div id="d-role" class="small" style="margin-top:6px"></div>
+                    <div id="d-reports" class="small muted" style="margin-top:6px"></div>
+                </div>
+                <div style="display:flex;gap:8px">
+                    <button id="d-delete" class="btn" type="button" style="background:#e74c3c;color:#fff">Supprimer</button>
+                    <button id="d-close" class="btn ghost" type="button">Fermer</button>
+                </div>
+            </div>
+            <div style="padding:0 16px 16px">
+                <label class="small muted" for="d-notes">Notes</label>
+                <textarea id="d-notes" style="width:100%;min-height:140px;background:var(--panel);border:1px solid var(--card-border);color:var(--text);border-radius:8px;padding:10px"></textarea>
+                <div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end">
+                    <button id="d-save" class="btn" type="button">Enregistrer</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <template id="staff-card-template">
+        <article class="card staff-card">
+            <div class="thumb-wrap" style="aspect-ratio:1/1">
+                <img class="thumb" alt="avatar" />
+                <span class="badge"></span>
+            </div>
+            <div class="meta">
+                <h3 class="name"></h3>
+                <div class="row small muted"><span class="reports"></span></div>
+            </div>
+        </article>
+    </template>
+
+    <div id="staff-modal" class="lightbox" hidden>
+        <button class="close" aria-label="Fermer" type="button">×</button>
+        <div class="card" style="max-width:860px;width:92vw">
+            <div style="display:flex;gap:16px;padding:16px;align-items:center">
+                <img id="m-avatar" alt="avatar" style="width:92px;height:92px;border-radius:12px;border:1px solid var(--card-border);object-fit:cover"/>
+                <div style="flex:1 1 auto">
+                    <h2 id="m-name" style="margin:0"></h2>
+                    <div id="m-role" class="small" style="margin-top:6px"></div>
+                    <div id="m-reports" class="small muted" style="margin-top:6px"></div>
+                    <div class="small muted" style="margin-top:6px">Commande: <code id="m-command"></code></div>
+                </div>
+            </div>
+            <div style="padding:0 16px 16px">
+                <label class="small muted" for="m-notes">Notes</label>
+                <textarea id="m-notes" style="width:100%;min-height:140px;background:var(--panel);border:1px solid var(--card-border);color:var(--text);border-radius:8px;padding:10px"></textarea>
+                <div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end">
+                    <button id="m-save" class="btn" type="button">Enregistrer</button>
+                    <button id="m-close" class="btn ghost" type="button">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="create-modal" class="lightbox" hidden>
+        <button class="close" aria-label="Fermer" type="button">×</button>
+        <div class="card" style="max-width:540px;width:92vw">
+            <div style="padding:16px">
+                <h2 style="margin:0 0 12px">Nouveau membre</h2>
+                <label class="small muted" for="c-name">Nom</label>
+                <input id="c-name" type="text" placeholder="Nom du membre" style="width:100%;margin:6px 0 12px;background:var(--panel);border:1px solid var(--card-border);color:var(--text);border-radius:8px;padding:10px">
+                <label class="small muted" for="c-role">Rôle</label>
+                <select id="c-role" style="width:100%;margin:6px 0 12px;background:var(--panel);border:1px solid var(--card-border);color:var(--text);border-radius:8px;padding:10px">
+                    <option>Helpeur</option>
+                    <option>Moderateur</option>
+                    <option>Administrateur</option>
+                    <option>Super Admin</option>
+                    <option>Responsable</option>
+                    <option>Gerant</option>
+                    <option>Fondateur</option>
+                </select>
+                <label class="small muted" for="c-avatar">URL avatar (optionnel)</label>
+                <input id="c-avatar" type="url" placeholder="https://..." style="width:100%;margin:6px 0 12px;background:var(--panel);border:1px solid var(--card-border);color:var(--text);border-radius:8px;padding:10px">
+                <div style="display:flex;gap:8px;justify-content:flex-end">
+                    <button id="c-save" class="btn" type="button">Créer</button>
+                    <button id="c-cancel" class="btn ghost" type="button">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="sf-footer"><div class="container"><span>© Stonefield</span></div></footer>
+
+    <script src="assets/main.js"></script>
+    <script src="assets/staff.js"></script>
+</body>
+</html>
+
+

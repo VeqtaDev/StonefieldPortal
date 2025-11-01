@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stonefield - Photos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" href="assets/favicon.png">
+</head>
+<body>
+    <header class="sf-header">
+        <div class="container">
+            <div class="brand">
+                <img src="assets/logo.png" alt="Stonefield" class="logo">
+                <span>Portail Stonefield</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html">Accueil</a>
+                <a href="vehicules.html">Véhicules</a>
+                <a href="armes.html">Armes</a>
+                <a href="vetements.html">Vêtements</a>
+                <a href="metiers.html">Métiers</a>
+                <a href="staff.html">Suivi Staff</a>
+                <a href="photos.html" class="active">Photos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-lg">
+        <div class="toolbar">
+            <h1>Galerie du serveur</h1>
+        </div>
+        <div id="photos-grid" class="grid gallery"></div>
+        <p class="muted small">Ajoutez vos images dans <code>images/photos/</code> et listez-les dans <code>images/photos/manifest.json</code>.</p>
+    </main>
+
+    <div id="lightbox" class="lightbox" hidden>
+        <button class="close" aria-label="Fermer">×</button>
+        <img alt="aperçu">
+    </div>
+
+    <footer class="sf-footer"><div class="container"><span>© Stonefield</span></div></footer>
+
+    <script src="assets/main.js"></script>
+    <script src="assets/photos.js"></script>
+</body>
+</html>
+
+
